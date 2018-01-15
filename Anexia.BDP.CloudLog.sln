@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2020
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anexia.BDP.CloudLog", "src\Anexia.BDP.CloudLog\Anexia.BDP.CloudLog.csproj", "{E18E3001-18A5-41F4-AE6B-C7D8459239A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E18E3001-18A5-41F4-AE6B-C7D8459239A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E18E3001-18A5-41F4-AE6B-C7D8459239A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E18E3001-18A5-41F4-AE6B-C7D8459239A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E18E3001-18A5-41F4-AE6B-C7D8459239A8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {28DA5187-F3C6-4E73-A866-D4753DA8F75D}
+	EndGlobalSection
+EndGlobal
