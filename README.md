@@ -1,2 +1,2 @@
 # dotnet-cloudlog
-CloudLog .NET client library
+dontnet-cloudlog is a client library for Anexia CloudLog.
