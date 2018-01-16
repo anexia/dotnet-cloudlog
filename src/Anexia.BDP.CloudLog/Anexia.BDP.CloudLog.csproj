@@ -5,7 +5,7 @@
     <Authors>Anexia;Platform Solutions</Authors>
     <Company>Anexia</Company>
     <Product>CloudLog</Product>
-    <Version>0.2.1</Version>
+    <Version>0.3.0</Version>
     <Description>CloudLog .NET Client</Description>
     <Copyright>Anexia</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
