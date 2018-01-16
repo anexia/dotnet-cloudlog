@@ -77,7 +77,17 @@ namespace Anexia.BDP.CloudLog
 
             httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", token);
+        }
 
+        /// <summary>
+        ///     Set custom client type name
+        /// </summary>
+        /// <param name="clientType">
+        ///     Client type
+        /// </param>
+        public void SetClientType(string clientType)
+        {
+            this.clientType = clientType;
         }
 
         /// <summary>
@@ -88,7 +98,7 @@ namespace Anexia.BDP.CloudLog
         /// </param>
         public void PushEvents(string[] events)
         {
-            long timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            long timestamp = (long)DateTime.Now.Subtract(DateTime.MinValue.AddYears(1969)).TotalMilliseconds;
 
             if (isHttp)
             {
