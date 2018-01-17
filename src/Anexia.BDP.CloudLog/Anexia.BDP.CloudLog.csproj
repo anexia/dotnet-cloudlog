@@ -5,10 +5,14 @@
     <Authors>Anexia;Platform Solutions</Authors>
     <Company>Anexia</Company>
     <Product>CloudLog</Product>
-    <Version>0.3.0</Version>
+    <Version>0.3.1</Version>
     <Description>CloudLog .NET Client</Description>
     <Copyright>Anexia</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIconUrl>https://secure.gravatar.com/avatar/9d6ad2f4979c38de18f29cb2ba8c4c3e?s=256</PackageIconUrl>
+    <RepositoryUrl>https://github.com/anexia-it/dotnet-cloudlog</RepositoryUrl>
+    <PackageProjectUrl>https://www.anexia-it.com</PackageProjectUrl>
+    <PackageTags>cloudlog logging</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
