@@ -5,7 +5,7 @@
     <Authors>Anexia;Platform Solutions</Authors>
     <Company>Anexia</Company>
     <Product>CloudLog</Product>
-    <Version>0.3.1</Version>
+    <Version>0.3.2</Version>
     <Description>CloudLog .NET Client</Description>
     <Copyright>Anexia</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -16,8 +16,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Confluent.Kafka" Version="0.11.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Confluent.Kafka" Version="0.11.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="System.Net.Http" Version="4.3.3" />
   </ItemGroup>
 
