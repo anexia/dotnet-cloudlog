@@ -23,6 +23,7 @@ namespace Anexia.BDP.CloudLog
         private string caFile;
         private string certFile;
         private string keyFile;
+        private string keyPassword;
         private string clientType;
         private bool isHttp;
         private long queue = 0;
@@ -45,12 +46,13 @@ namespace Anexia.BDP.CloudLog
         /// <param name="keyFile">
         ///     Path to key file
         /// </param>
-        public Client(string index, string caFile, string certFile, string keyFile)
+        public Client(string index, string caFile, string certFile, string keyFile, string keyPassword = "")
         {
             this.index = index;
             this.caFile = caFile;
             this.certFile = certFile;
             this.keyFile = keyFile;
+            this.keyPassword = keyPassword;
             this.isHttp = false;
             this.clientType = "dotnet-client-kafka";
             CheckKafkaConfiguration();
@@ -271,6 +273,11 @@ namespace Anexia.BDP.CloudLog
                 { "retries", 10 },
 
             };
+            if (!string.IsNullOrWhiteSpace(keyPassword))
+            {
+                config.Add("ssl.key.password", keyPassword);
+            }
+
             producer = new Producer<string, string>(config, new StringSerializer(Encoding.UTF8), new StringSerializer(Encoding.UTF8));
         }
 
