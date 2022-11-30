@@ -1,24 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;net46;netstandard1.5;</TargetFrameworks>
     <Authors>Anexia;Platform Solutions</Authors>
     <Company>Anexia</Company>
     <Product>CloudLog</Product>
-    <Version>0.4.0</Version>
     <Description>CloudLog .NET Client</Description>
     <Copyright>Anexia</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageIconUrl>https://secure.gravatar.com/avatar/9d6ad2f4979c38de18f29cb2ba8c4c3e?s=256</PackageIconUrl>
     <RepositoryUrl>https://github.com/anexia-it/dotnet-cloudlog</RepositoryUrl>
-    <PackageProjectUrl>https://www.anexia-it.com</PackageProjectUrl>
+    <PackageProjectUrl>https://www.anexia.com</PackageProjectUrl>
     <PackageTags>cloudlog logging</PackageTags>
+    <LangVersion>9</LangVersion>
+    <TargetFramework>net5.0</TargetFramework>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Confluent.Kafka" Version="0.11.5" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.Text.Json" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

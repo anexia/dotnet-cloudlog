@@ -1,0 +1,30 @@
+name: "Run tests"
+
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+  push:
+    branches:
+      - master
+      - GitHubTestWorkflow
+      - releases/*
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  setup-version:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ['5.0.x']
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Build
+        run: dotnet build --configuration Release
+      - name: Test
+        run: dotnet test --filter Category="GitHub" --no-restore --verbosity normal
