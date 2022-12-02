@@ -15,6 +15,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <TargetFrameworks>net5.0;net6.0;net7.0</TargetFrameworks>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,5 +26,7 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
 </Project>
