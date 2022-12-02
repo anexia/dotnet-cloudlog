@@ -1,7 +1,7 @@
 dotnet-cloudlog
 ===============
 [![Nuget](https://img.shields.io/nuget/v/Anexia.BDP.CloudLog)](https://www.nuget.org/packages/Anexia.BDP.CloudLog)
-[![Test status](https://github.com/anexia-it/dotnet-cloudlog/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/anexia-it/dotnet-cloudlog/actions/workflows/test.yml)
+[![Test status](https://github.com/anexia/dotnet-cloudlog/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/anexia/dotnet-cloudlog/actions/workflows/test.yml)
 
 `dotnet-cloudlog` is a client library for Anexia CloudLog. It provides a simple API for sending events to a CloudLog
 index directly from your .NET application.
@@ -11,7 +11,7 @@ CloudLog via `Filebeat`.
 
 # Install
 
-With a correctly set up .NET SDK, run in `PowerShell``:
+With a correctly set up .NET SDK, run in `PowerShell`:
 
 ```powershell
 Install-Package Anexia.BDP.CloudLog

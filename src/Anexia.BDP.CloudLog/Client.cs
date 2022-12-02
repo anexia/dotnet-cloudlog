@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Net.Http;
-using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -15,29 +14,27 @@ namespace Anexia.BDP.CloudLog
     /// <summary>
     ///     Implements a CloudLog client
     /// </summary>
-    public class Client
+    public class Client : IDisposable
     {
-        private const string api = "https://api0401.bdp.anexia-it.com";
+        private const string Api = "https://api0401.bdp.anexia-it.com";
 
-        private static JsonSerializerOptions _jsonSerializerOptions = new()
+        private static readonly JsonSerializerOptions JsonSerializerOptions = new()
         {
             PropertyNameCaseInsensitive = true
         };
 
         private readonly string _index;
         private readonly string _token;
-        private readonly bool _isHttp;
-        private long queue = 0;
 
-        private string ClientType;
+        private string _clientType;
 
-        private HttpClient httpClient;
+        private HttpClient _httpClient;
 
-        private readonly Func<long> createTimeStamp =
+        private readonly Func<long> _createTimeStamp =
             () => (long)DateTime.Now.Subtract(DateTime.MinValue.AddYears(1969)).TotalMilliseconds;
 
         /// <summary>
-        ///     Creates a new client instance (http)
+        ///     Creates a new client instance
         /// </summary>
         /// <param name="index">
         ///     Index name
@@ -52,16 +49,15 @@ namespace Anexia.BDP.CloudLog
         {
             _index = index;
             _token = token;
-            _isHttp = true;
-            ClientType = "dotnet-client-http";
+            _clientType = "dotnet-client-http";
             CheckHttpConfiguration();
 
-            httpClient = client;
-            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", token);
+            _httpClient = client;
+            _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", token);
         }
 
         /// <summary>
-        ///     Creates a new client instance (http)
+        ///     Creates a new client instance
         /// </summary>
         /// <param name="index">
         ///     Index name
@@ -82,7 +78,7 @@ namespace Anexia.BDP.CloudLog
         /// </param>
         public void SetClientType(string clientType)
         {
-            ClientType = clientType;
+            _clientType = clientType;
         }
 
         /// <summary>
@@ -94,8 +90,8 @@ namespace Anexia.BDP.CloudLog
         /// <returns>Task of post async function</returns>
         public Task PushEvents(string[] events)
         {
-            long timestamp = createTimeStamp();
-            ImmutableDictionary<string, JsonNode>[] result =
+            var timestamp = _createTimeStamp();
+            var result =
                 new ImmutableDictionary<string, JsonNode>[events.Length];
             for (var i = 0; i < events.Length; i++)
             {
@@ -107,23 +103,6 @@ namespace Anexia.BDP.CloudLog
         }
 
         /// <summary>
-        ///     Flush events
-        /// </summary>
-        public void Flush()
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            while (queue > 0)
-            {
-                if (sw.ElapsedMilliseconds > 5000)
-                {
-                    queue = 0;
-                }
-            }
-
-            sw.Stop();
-        }
-
-        /// <summary>
         ///     Sends an event to CloudLog
         /// </summary>
         /// <param name="evt">
@@ -132,7 +111,7 @@ namespace Anexia.BDP.CloudLog
         /// <returns>Task of post async function</returns>
         public Task PushEvent(string evt)
         {
-            long timestamp = createTimeStamp();
+            var timestamp = _createTimeStamp();
             return SendOverHttp(new[] { AddMetadata(ref evt, ref timestamp) });
         }
 
@@ -146,10 +125,8 @@ namespace Anexia.BDP.CloudLog
         private Task SendOverHttp(PushEventPayload events)
         {
             var content = new StringContent(JsonSerializer.Serialize(events), Encoding.UTF8, "application/json");
-            queue++;
-            return httpClient.PostAsync(api + "/v1/index/" + _index + "/data", content).ContinueWith(task =>
+            return _httpClient.PostAsync(Api + "/v1/index/" + _index + "/data", content).ContinueWith(task =>
             {
-                queue--;
                 if (task.Result.StatusCode != System.Net.HttpStatusCode.Created &&
                     task.Result.StatusCode != System.Net.HttpStatusCode.Accepted)
                 {
@@ -174,7 +151,7 @@ namespace Anexia.BDP.CloudLog
             {
                 try
                 {
-                    data = JsonSerializer.Deserialize<JsonObject>(evt, _jsonSerializerOptions)!;
+                    data = JsonSerializer.Deserialize<JsonObject>(evt, JsonSerializerOptions)!;
                     data.Remove("cloudlog_client_type");
                     data.Remove("cloudlog_source_host");
                 }
@@ -191,7 +168,7 @@ namespace Anexia.BDP.CloudLog
             }
 
             data.TryAdd("timestamp", timeStamp);
-            data.TryAdd("cloudlog_client_type", ClientType);
+            data.TryAdd("cloudlog_client_type", _clientType);
             data.TryAdd("cloudlog_source_host", Environment.MachineName);
 
             return data.ToImmutableDictionary();
@@ -202,15 +179,20 @@ namespace Anexia.BDP.CloudLog
         /// </summary>
         private void CheckHttpConfiguration()
         {
-            if (String.IsNullOrEmpty(_index))
+            if (string.IsNullOrEmpty(_index))
             {
-                throw new ArgumentException("mssing index");
+                throw new ArgumentException("index is missing");
             }
 
-            if (String.IsNullOrEmpty(_token))
+            if (string.IsNullOrEmpty(_token))
             {
-                throw new ArgumentException("mssing token");
+                throw new ArgumentException("token is missing");
             }
+        }
+
+        public void Dispose()
+        {
+            _httpClient?.Dispose();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Anexia.BDP.CloudLog.Test
     [Trait("CloudLog", "Client")]
     public class ClientTest
     {
-        private const string testContent = "test content";
+        private const string TestContent = "test content";
 
         private Client CreateClient(Action<HttpRequestMessage, CancellationToken> callbackFunc)
         {
@@ -27,7 +27,7 @@ namespace Anexia.BDP.CloudLog.Test
                 .ReturnsAsync(new HttpResponseMessage
                 {
                     StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent(testContent)
+                    Content = new StringContent(TestContent)
                 });
             return new Client("SomeIndex", "SomeToken", new HttpClient(moqHttpMessageHandler.Object));
         }
