@@ -6,9 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2022-12-02
 ### Added
-- Kafka removed completely
-- Task returned for better handling
 - Unit tests
 - Changelog added
 
-[1.0.0]: https://github.com/anexia/dotnet-cloudlog/releases/tag/1.0.0
+### Changed
+- Task returned for better handling
+
+### Removed
+- Kafka removed completely
+
+[1.0.0]: https://github.com/anexia/dotnet-cloudlog/releases/tag/v1.0.0
